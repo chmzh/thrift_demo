@@ -33,4 +33,50 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+   	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>dependency/</classpathPrefix>
+							<mainClass>com.cmz.app.Server</mainClass>
+						</manifest>
+						<!-- 在mainfest中 本地jar路径 添加classpath缺少的内容
+ 					    <manifestEntries>
+					      <Class-Path>dependency/flume-ng-sdk-1.6.0.jar</Class-Path>
+					    </manifestEntries>  -->
+					</archive>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/dependency/
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			
+			
+		</plugins>
+	</build> 
+  
+  
 </project>
